@@ -19,13 +19,19 @@
             <div class="middle">
                 <img src="Images/logo.png" alt="">
                 <h1>EMAT</h1>
-            </div> 
-            <div class="error" id="error-message">
-                
             </div>
-            <form action="actions/signup.php" method="post" class="right">
+            <form action="php/signup.php" method="post" class="right">
                 <h1>Register an Account</h1>
-                <h3>Enter Your details to register.</h3>
+                <div class='error' >
+                    <?php
+                        if (isset($_GET['feedback'])) {
+                            $feedback = urldecode($_GET['feedback']);
+                            echo "<p>" . htmlspecialchars($feedback) . "</p>";
+                        }else{
+                            echo "<p id='error-message'></p>";
+                        }
+                    ?>
+                </div>
                 <div class="input">
                     <h3>USERNAME</h3>
                     <input type="text" placeholder="&#xF0e0;  Enter Your Username" id="Username" name="Username" style="font-family:Arial, FontAwesome" required>
@@ -43,10 +49,40 @@
                     <input type="password" placeholder="&#xF0e0;  Confirm Password" id="confirm-password" name="confirm-password" style="font-family:Arial, FontAwesome" required>
                 </div>
                 <div id="google-container">
-                    <button type="submit">SIGN UP</button>
-                    <p>Already registered?<a href="index.html">  Log in</a></p>
+                    <button id="registerbutton">SIGN UP</button>
+                    <p>Already registered?<a href="index.php">  Log in</a></p>
                 </div>
             </form>
         </div>
     </body>
 </html>
+<script>
+    var email = document.getElementById('Email');
+    var pass = document.getElementById('Password');
+    var confirm_pass = document.getElementById('confirm-password');
+    var error = document.getElementById('error-message');
+    var button = document.getElementById('registerbutton');
+    var form = document.querySelector('form');
+    button.addEventListener('click', function(e){
+        if(pass.value != confirm_pass.value){
+            e.preventDefault();
+            error.innerHTML = 'Passwords do not match';
+        }
+        else if(pass.value.length < 8){
+            e.preventDefault();
+            error.innerHTML = 'Password must be at least 8 characters long';
+        }
+        else if(pass.value.length > 20){
+            e.preventDefault();
+            error.innerHTML = 'Password must be at most 20 characters long';
+        }
+        else if(!email.value.includes('@') || !email.value.includes('.')){
+            e.preventDefault();
+            error.innerHTML = 'Invalid email';
+        }
+        else{
+            form.submit();
+        }
+    });
+
+</script>

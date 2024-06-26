@@ -1,3 +1,9 @@
+<!--php
+    session_start();
+    if(isset($_SESSION['mysession'])){
+        header('Location: homepage.php');
+    }
+-->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,6 +15,9 @@
         <link href="css/signup.css" rel="stylesheet">
     </head>
     <body>
+        <?php
+            include 'php/connect.php';
+        ?>
         <div class="container"> 
             <div class="left">
                 <h1>Elevating <span style="color: green;">Campus</span><br/> Mobility<br/></h1>
@@ -16,14 +25,20 @@
                 <img src="Images/Login-image.png" alt="image">
             </div>
             <div class="middle">
-                <img src="Images/DCA-logo.png" alt="">
+                <img src="Images/logo.png" alt="">
                 <h1>EMAT</h1>
-            </div> 
-            <div class="error" id="error-message">
-                
             </div>
-            <form action="actions/login.php" method="post" class="right">
+            <form action="php/login.php" method="post" class="right">
                 <h1>Login to your account</h1>
+                <div class='error' >
+                    <p id='error-message'></p>
+                    <?php
+                        if (isset($_GET['feedback'])) {
+                            $feedback = urldecode($_GET['feedback']);
+                            echo "<p>" . htmlspecialchars($feedback) . "</p>";
+                        }
+                    ?>
+                </div>
                 <div class="input">
                     <h3>EMAIL ADDRESS</h3>
                     <input type="text" placeholder="&#xF0e0;  Enter Your Email" id="Email" name="Email" style="font-family:Arial, FontAwesome" required>
@@ -35,32 +50,10 @@
                 </div>
                 <div id="google-container">
                     <button type="submit" class="submit-button">LOGIN</button>
-                    <p>New here?<a href="signup.html">Register</a></p>
+                    <p>New here?<a href="signup.php">Register</a></p>
                     <p>Forgot password?<a href="forgot.html">Reset</a></p>
                 </div>
             </form>
         </div>
     </body>
 </html>
-<?php
-if (isset($_GET['response'])) {
-        $response = htmlspecialchars($_GET['response']);
-        //handle response
-        echo "<script>
-        var error = document.getElementById('error-message');
-        error.style.display = 'flex';
-        error.style.animation = 'slide-down 2s linear';
-        error.textContent = '$response';
-        </script>";
-    }
-?>
-<script>
-    var logTime = document.getElementById('logTime');
-    var today = new Date();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-    logTime.value = time;
-
-    function reDirect(page) {
-        window.location.href = page + ".php";
-    }
-</script>
