@@ -33,21 +33,27 @@ body{
 
 nav{
     all: unset;
-    height: 98vh;
-    width: 5vw;
+    height: 94vh;
+    padding-top: 6vh;
+    width: 10vw;
     position: absolute;
-    top: 2vh;
     left: 0;
     background-color: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     background-color: #ffffff;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 0px 0px 0px, rgba(0, 0, 0, 0.2) 0px 0px 0px inset;
     z-index: 998;
-    border-radius: 1vw 0 0 1vw;
     transition: all 0.4s ease-in;
+    border-right: 1px solid #bebebe;
+    margin: 0;
+}
+nav img{
+    width: 8vw;
+    height: 8vw;
+    border-radius: 50%;
+    margin-bottom: 1vh;
 }
 .balance{
     width: 100%;
@@ -64,13 +70,19 @@ nav{
     color: #C1E4DD;
 }
 #homeicon, #profileicon, #reporticon, #historyicon, #settingsicon{
-    width: 3vw;
+    width: 8vw;
     height: 3vw;
     border-radius: 1vh;
+    font-size: 2vh;
     display: flex;
-    justify-content: center;
+    justify-content: start;
+    column-gap: 1vw;
     align-items: center;
     background-color: transparent;
+    margin-top: unset;
+}
+#homeicon{
+    margin-top: 4vh;
 }
 nav p:hover{
     transform: scale(1.1);
@@ -79,11 +91,12 @@ nav p:hover{
     position: absolute;
     padding-top: 2vh;
     padding-bottom: 2vh;
-    left: 6vw;
-    top: 2vh;
+    left: 11vw;
     width: 35vw;
-    height: 98vh;
+    height: 100vh;
     border-radius: 1vw;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -95,7 +108,6 @@ nav p:hover{
     row-gap: 2vh;
     transition: all 0.5s ease-in;
     animation: slideright .4s linear;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 #home select, #profile select{
     border: none;
@@ -192,7 +204,7 @@ option{
 }
 #profile{
     position: absolute;
-    left: 6vw;
+    left: 11vw;
     top: 2vh;
     width: 35vw;
     padding-top: 5vh;
@@ -208,7 +220,6 @@ option{
     background-color: #ffffff;
     /* background: rgba(0, 0, 0, 0.205);
     backdrop-filter: blur(10px); */
-    box-shadow: #00000066 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     animation: slideright .4s linear forwards;
 }
 .profile-image{
@@ -283,11 +294,10 @@ option{
 #history{
     overflow-y: scroll;
     position: absolute;
-    left: 6vw;
+    left: 11vw;
     border-radius: 1vw;
-    top: 2vh;
     width: 35vw;
-    height: 98vh;
+    height: 100vh;
     display: none;
     flex-direction: column;
     z-index: 997;
@@ -296,7 +306,6 @@ option{
     background-color: #ffffff;
     /* background: rgba(0, 0, 0, 0.205);
     backdrop-filter: blur(10px); */
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     animation: slideright .4s linear forwards;
 }
 .history-nav{
@@ -365,7 +374,7 @@ option{
 }
 #report{
     position: absolute;
-    left: 6vw;
+    left: 11vw;
     top: 12.5vh;
     width: 35vw;
     /* padding-left: 5vw; */
@@ -382,7 +391,6 @@ option{
     /* background: rgba(0, 0, 0, 0.205); */
     /* backdrop-filter: blur(10px); */
     animation: slideright .4s linear forwards;
-    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 }
 #report h2{
     width: 30vw;
@@ -457,7 +465,7 @@ option{
 }
 #settings{
     position: absolute;
-    left: 38vw;
+    left: 15vw;
     top: 30vh;
     width: 24vw;
     height: 40vh;
@@ -485,20 +493,21 @@ option{
     color: white;
     margin-top: 2vh;
 }
-#settings button:hover{
+#settings button:hover{ 
     color: #F9BEBA;
     background-color: white;
     border: 1px solid #F9BEBA;
 }
 #map{
     position: absolute;
-    left: 1vw;
-    top: 1vh;
-    height: 98vh;
-    width: 98vw;
-    border-radius: 1vw;
+    left: 46vw;
+    height: 100vh;
+    width: 54vw;
+    border-top-left-radius: 1vw;
+    border-bottom-left-radius: 1vw;
     z-index: 996;
     color: black;
+    border: 1px solid #bebebe;
 }
 .verification{
     width: 100vw;

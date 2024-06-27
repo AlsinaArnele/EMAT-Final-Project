@@ -66,4 +66,5 @@
         $feedback = "Connection error, please try again later.";
         header('Location: ../signup.php?feedback=' . $feedback);
     }
+    
 ?>

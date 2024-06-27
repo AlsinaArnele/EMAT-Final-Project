@@ -3,6 +3,20 @@ session_start();
 include 'php/book.php';
 if(isset($_SESSION['mysession'])){
     $myemail = $_SESSION['mysession'];
+
+    include 'php/connect.php';
+    $sql = "SELECT * FROM customer WHERE Cust_email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $myemail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    $username = isset($row) && array_key_exists('Cust_name', $row) ? htmlspecialchars($row['Cust_name']) : '';
+    $email = isset($row) && array_key_exists('Cust_email', $row) ? htmlspecialchars($row['Cust_email']) : '';
+    $phone = isset($row) && array_key_exists('Cust_phone', $row) ? htmlspecialchars($row['Cust_phone']) : '';
+    $image = isset($row) && array_key_exists('Cust_image', $row) ? htmlspecialchars($row['Cust_image']) : '';
+
 }
 else{
     header('Location: index.php');
@@ -32,12 +46,17 @@ else{
 </head>
 <body>
     <nav>
-        <p onclick="changeTabs('home')" id="homeicon"><span class="material-symbols-outlined">home</span></p>
-        <p onclick="changeTabs('profile')" id="profileicon"><span class="material-symbols-outlined">person</span></p>
-        <p onclick="changeTabs('history')" id="historyicon"><span class="material-symbols-outlined">history</span></p>
-        <p onclick="changeTabs('report')" id="reporticon"><span class="material-symbols-outlined">flag</span></p>
-        <p onclick="changeTabs('settings')" id="settingsicon"><span class="material-symbols-outlined">logout</span></p>
-    </nav>
+        <img src="Images/<?php echo $row['Cust_image']?>" alt="profile">
+        <h2><?php echo $row['Cust_name']?></h2>
+        <p onclick="changeTabs('home')" id="homeicon"><span class="material-symbols-outlined">home</span>Home</p>
+        <p onclick="changeTabs('profile')" id="profileicon"><span class="material-symbols-outlined">person</span>Profile</p>
+        <p onclick="changeTabs('history')" id="historyicon"><span class="material-symbols-outlined">history</span>Ride History</p>
+        <p onclick="changeTabs('report')" id="reporticon"><span class="material-symbols-outlined">flag</span>Feedback Report</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p onclick="changeTabs('settings')" id="settingsicon"><span class="material-symbols-outlined">logout</span>Log Out</p>
+    </nav> 
 
     <!-- TABS -->
     <div id="home" class="home">
@@ -108,20 +127,7 @@ else{
 
     
     <!-- PHP Code for Verification and Profile Details -->
-    <?php
-    include 'php/connect.php';
-    $sql = "SELECT * FROM customer WHERE Cust_email = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $myemail);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-
-    $username = isset($row) && array_key_exists('Cust_name', $row) ? htmlspecialchars($row['Cust_name']) : '';
-    $email = isset($row) && array_key_exists('Cust_email', $row) ? htmlspecialchars($row['Cust_email']) : '';
-    $phone = isset($row) && array_key_exists('Cust_phone', $row) ? htmlspecialchars($row['Cust_phone']) : '';
-    $image = isset($row) && array_key_exists('Cust_image', $row) ? htmlspecialchars($row['Cust_image']) : '';
-    ?>
+    
 
     <div class='verification' style="display: <?php echo $row['Cust_status'] == 'verified' ? 'none' : 'flex'; ?>;">
         <form action='php/verify.php' method="post">
@@ -185,21 +191,21 @@ else{
                     <th>Route</th>
                 </tr>
                 <?php
-                $sql = "SELECT * FROM bookings WHERE Cust_email = ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param('s', $myemail);
-                $stmt->execute();   
-                $result = $stmt->get_result();
-                while($row = $result->fetch_assoc()){
+                $sql2 = "SELECT * FROM bookings WHERE Cust_email = ?";
+                $stmt2 = $conn->prepare($sql2);
+                $stmt2->bind_param('s', $myemail);
+                $stmt2->execute();   
+                $result2 = $stmt2->get_result();
+                while($row2 = $result2->fetch_assoc()){
                     echo "<tr>";
-                    echo "<td>".htmlspecialchars($row['Driver_name'])."</td>";
-                    echo "<td>".htmlspecialchars($row['Time'])."</td>";
-                    echo "<td>".htmlspecialchars($row['Vehicle_make']." ".$row['Vehicle_model'])."</td>";
-                    echo "<td>".htmlspecialchars($row['Seat'])."</td>";
-                    echo "<td>".htmlspecialchars($row['Route'])."</td>";
+                    echo "<td>".htmlspecialchars($row2['Driver_name'])."</td>";
+                    echo "<td>".htmlspecialchars($row2['Time'])."</td>";
+                    echo "<td>".htmlspecialchars($row2['Vehicle_make']." ".$row2['Vehicle_model'])."</td>";
+                    echo "<td>".htmlspecialchars($row2['Seat'])."</td>";
+                    echo "<td>".htmlspecialchars($row2['Route'])."</td>";
                     echo "</tr>";
                 }
-                ?>
+                ?> 
             </table>
         </div>
     </div>
@@ -254,5 +260,9 @@ else{
     }
     ?>
 </body>
-<script src="js/app.js"></script>
-</html>
+<script src="js/map.js"></script>
+<script>
+    routeSelect.addEventListener('change', setTrack);
+    timeSelect.addEventListener('change', setTrack);
+</script>
+</html> 

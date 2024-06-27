@@ -7,10 +7,10 @@ if(isset($_SESSION['driver'])) {
 }
 
 $id = $_POST['driverid'];
-$password = $_POST['Password'];
+$password = $_POST['password'];
 
 // check whether id exists
-$sql = "SELECT Driver_id FROM customer WHERE Driver_id=?";
+$sql = "SELECT driver_id FROM drivers WHERE driver_id=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $id);
 $stmt->execute();
@@ -23,7 +23,7 @@ if (!$existsemail) {
     exit();
 }
 
-$sql = "SELECT Driver_password FROM customer WHERE Driver_id=?";
+$sql = "SELECT Driver_password FROM drivers WHERE Driver_id=?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $id);
 $stmt->execute();
@@ -34,10 +34,16 @@ $conn->close();
  
 if (password_verify($password, $hashedPass)) { 
     $_SESSION['driver'] = $id;
-    header("Location: ../driver.php");
+    $feedback = "Welcome!";
+    header('Location: ../driver.php?feedback=' . $feedback);
+}
+else if($password == $hashedPass){
+    $_SESSION['driver'] = $id;
+    $feedback = "Welcome!";
+    header('Location: ../driver.php?feedback=' . $feedback);
 }
 else {
-    $feedback = "Invalid password or email!";
+    $feedback = "Invalid password or ID!";
     header('Location: ../driver.php?feedback=' . $feedback);
 }
 ?>

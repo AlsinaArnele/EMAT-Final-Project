@@ -99,9 +99,79 @@ function setTrack() {
                 destination
             ]);
         });
-    } else {
-        routeSelect.style.color = 'red';
+    } else if(route !== 'default-route' && time === 'default-time'){
         timeSelect.style.color = 'red';
+    }else{
+        routeSelect.style.color = 'red';
     }
 }
 
+routeSelect.addEventListener('change', setTrack);
+timeSelect.addEventListener('change', setTrack);
+
+function changeTabs(tab) {
+    var tabs = ['home', 'profile', 'history', 'report', 'settings'];
+    tabs.forEach(function(item) {
+        var currentTab = document.getElementById(item);
+        var icon = document.getElementById(item + 'icon');
+        if (tab === item) {
+            if(currentTab.style.display === "flex"){
+                currentTab.style.display = "none";
+                icon.style.backgroundColor = "transparent";
+                return;
+            }else{
+                currentTab.style.display = "flex";
+                icon.style.backgroundColor = "#A1EEDF";
+            }
+        } else {
+            currentTab.style.display = "none";
+            icon.style.backgroundColor = "transparent";
+        }
+    });
+    mapEnlarge();
+}
+
+function submitFeedback(feedback) {
+    var colors = ['black', 'red', 'orange', 'yellow', 'lime', 'green'];
+    for (var i = 1; i <= 5; i++) {
+        var element = document.getElementById(i.toString());
+        if (i == feedback) {
+            element.style.color = colors[i];
+            element.style.transform = 'scale(.95)';
+            document.getElementById('rating-holder').value = feedback;
+        } else {
+            element.style.color = 'black';
+        }
+    }
+}
+
+function profile(){
+    var profilediv = document.getElementById('profile');
+    var otherdiv = document.querySelector('.scheduling');
+    var detailsdiv = document.querySelector('.details');
+    if(profilediv.style.display === "flex"){
+        profilediv.style.display = "none";
+        otherdiv.style.display = "flex";
+        detailsdiv.style.display = "flex";
+    }else{
+        profilediv.style.display = "flex";
+        otherdiv.style.display = "none";
+        detailsdiv.style.display = "none";
+    }
+}
+
+function mapEnlarge(){
+    var home = document.getElementById('home');
+    var profile = document.getElementById('profile');
+    var history = document.getElementById('history');
+    var report = document.getElementById('report');
+    var settings = document.getElementById('settings');
+
+    if(home.style.display === "none" && profile.style.display === "none" && history.style.display === "none" && report.style.display === "none" && settings.style.display === "none"){
+        document.getElementById('map').style.width = "89vw";
+    }
+    document.getElementById('map').style.width = "70vw";
+}
+
+
+  
