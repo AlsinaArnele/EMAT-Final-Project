@@ -1,19 +1,24 @@
 *{
     font-family: "Lato", sans-serif;
-    color: gray;
+    color: #262626;
     font-weight: 400;
     transition: all 0.5s;
     cursor:  url('../Images/ClassicWhiteNormalSelect.cur'), auto;
 }
 button{
     color: white;
+    background-color: #AFC8AD;
+    border: 1px solid #AFC8AD;
 }
 button:active{
     transform: scale(0.9);
+    color: #88AB8E;
+    background-color: white;
+    border: 1px solid #88AB8E;
 }
 body{
     margin: 0;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: #ffffff;
     overflow: hidden;
     z-index: 100;
     padding: unset;
@@ -25,7 +30,7 @@ body{
     'wght' 300,
     'GRAD' 0,
     'opsz' 90;
-    color: #000000;
+    color: #262626;
   }
 #history::-webkit-scrollbar , #profile::-webkit-scrollbar{
   display: none;
@@ -43,7 +48,7 @@ nav{
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    background-color: #ffffff;
+    background-color: #ffe658;
     z-index: 998;
     transition: all 0.4s ease-in;
     border-right: 1px solid #bebebe;
@@ -55,24 +60,11 @@ nav img{
     border-radius: 50%;
     margin-bottom: 1vh;
 }
-.balance{
-    width: 100%;
-    height: 5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-.balance h3{
-    font-size: 2vw;
-    color: #C1E4DD;
-}
 #homeicon, #profileicon, #reporticon, #historyicon, #settingsicon{
-    width: 8vw;
-    height: 3vw;
+    width: 9vw;
+    height: 5vh;
     border-radius: 1vh;
+    padding-left: 1vw;
     font-size: 2vh;
     display: flex;
     justify-content: start;
@@ -102,7 +94,7 @@ nav p:hover{
     justify-content: center;
     align-items: start;
     z-index: 997;
-    background-color: #ffffff;
+    background-color: #F2F1EB;
     /* background: rgba(0, 0, 0, 0.205); */
     /* backdrop-filter: blur(10px); */
     row-gap: 2vh;
@@ -124,11 +116,11 @@ option{
 }
 #home select:focus, #profile select:focus{
     outline: none;
-    border-bottom: 1px solid #F9BEBA;
+    border-bottom: 1px solid #AFC8AD;
 }
 #home input:focus{
     outline: none;
-    border-bottom: 1px solid #F9BEBA;
+    border-bottom: 1px solid #AFC8AD;
 }
 #home input{
     background-color: rgba(255, 255, 255, 0.4);
@@ -194,13 +186,13 @@ option{
 #home button{
     width: 11vw;
     height: 5vh;
-    border: 1px solid #F9BEBA;
-    background-color: #F9BEBA;
+    border: 1px solid #AFC8AD;
+    background-color: #AFC8AD;
 }
 #home button:hover{
-    color: #F9BEBA;
+    color: #88AB8E;
     background-color: white;
-    border: 1px solid #F9BEBA;
+    border: 1px solid #88AB8E;
 }
 #profile{
     position: absolute;
@@ -217,7 +209,7 @@ option{
     z-index: 997;
     justify-content: space-around;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #F2F1EB;
     /* background: rgba(0, 0, 0, 0.205);
     backdrop-filter: blur(10px); */
     animation: slideright .4s linear forwards;
@@ -265,7 +257,7 @@ option{
 }
 #profile input:focus{
     outline: none;
-    border-bottom: 1px solid #F9BEBA;
+    border-bottom: 1px solid #AFC8AD;
 }
 .mybutton{
     width: 35vw;
@@ -277,14 +269,14 @@ option{
 #profile button{
     width: 23vw;
     height: 6vh;
-    border: 1px solid #F9BEBA;
-    background-color: #F9BEBA;
+    border: 1px solid #AFC8AD;
+    background-color: #AFC8AD;
     margin-left: .5vw;
 }
 #profile button:hover{
-    color: #F9BEBA;
+    color: #BB86FC;
     background-color: white;
-    border: 1px solid #F9BEBA;
+    border: 1px solid #88AB8E;
 }
 .profile-image p{
     color: black;
@@ -303,7 +295,7 @@ option{
     z-index: 997;
     justify-content: start;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #F2F1EB;
     /* background: rgba(0, 0, 0, 0.205);
     backdrop-filter: blur(10px); */
     animation: slideright .4s linear forwards;
@@ -325,8 +317,8 @@ option{
 #history button{
     width: 10vw;
     height: 5vh;
-    border: 1px solid #F9BEBA;
-    background-color: #F9BEBA;
+    border: 1px solid #AFC8AD;
+    background-color: #AFC8AD;
     text-align: center;
 }
 .day{
@@ -340,7 +332,7 @@ option{
     width: 90%;
     height: max-content;
     font-size: 1.5vw;
-    color: #C1E4DD;
+    color: #AFC8AD;
 }
 #history .day table{
     width: 90%;
@@ -356,7 +348,7 @@ option{
     text-align: start;
 }
 #history .day th{
-    color: #F9BEBA;
+    color: #AFC8AD;
 }
 #history td{
     border: 1px solid rgba(0, 0, 0, 0.2);
@@ -368,9 +360,9 @@ option{
     border-right: none;
 }
 #history button:hover{
-    color: #F9BEBA;
+    color: #AFC8AD;
     background-color: white;
-    border: 1px solid #F9BEBA;
+    border: 1px solid #AFC8AD;
 }
 #report{
     position: absolute;
@@ -387,7 +379,7 @@ option{
     justify-content: center;
     padding-top: 5vh;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #F2F1EB;
     /* background: rgba(0, 0, 0, 0.205); */
     /* backdrop-filter: blur(10px); */
     animation: slideright .4s linear forwards;
@@ -439,20 +431,20 @@ option{
     border: none;
 }
 #report textarea:focus{
-    outline: 1px solid #F9BEBA;
+    outline: 1px solid #88AB8E;
     border: none;
 }
 #report button{
     width: 10vw;
     height: 5vh;
-    border: 1px solid #F9BEBA;
-    background-color: #F9BEBA;
+    border: 1px solid #AFC8AD;
+    background-color: #AFC8AD;
     margin-top: 2vh;
 }
 #report button:hover{
-    color: #F9BEBA;
+    color: #88AB8E;
     background-color: white;
-    border: 1px solid #F9BEBA;
+    border: 1px solid #88AB8E;
 }
 #report .consent{
     width: 30vw;
@@ -474,7 +466,7 @@ option{
     z-index: 997;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color: #F2F1EB;
     /* background: rgba(0, 0, 0, 0.205);
     backdrop-filter: blur(10px); */
     border-radius: 1vw;
@@ -488,26 +480,25 @@ option{
 #settings button{
     width: 10vw;
     height: 5vh;
-    border: 1px solid #F9BEBA;
-    background-color: #F9BEBA;
+    border: 1px solid #AFC8AD;
+    background-color: #AFC8AD;
     color: white;
     margin-top: 2vh;
 }
 #settings button:hover{ 
-    color: #F9BEBA;
+    color: #88AB8E;
     background-color: white;
-    border: 1px solid #F9BEBA;
+    border: 1px solid #88AB8E;
 }
 #map{
     position: absolute;
     left: 46vw;
     height: 100vh;
     width: 54vw;
-    border-top-left-radius: 1vw;
-    border-bottom-left-radius: 1vw;
+    border-top-right-radius: 1vw;
+    border-bottom-right-radius: 1vw;
     z-index: 996;
     color: black;
-    border: 1px solid #bebebe;
 }
 .verification{
     width: 100vw;
@@ -555,14 +546,14 @@ option{
 .verification button{
     width: 20vw;
     height: 5vh;
-    border: 1px solid #F9BEBA;
-    background-color: #F9BEBA;
+    border: 1px solid #AFC8AD;
+    background-color: #AFC8AD;
     margin-top: 2vh;
 }
 .verification button:hover{
-    color: #F9BEBA;
+    color: #88AB8E;
     background-color: white;
-    border: 1px solid #F9BEBA;
+    border: 1px solid #88AB8E;
 }
 
 .error{
@@ -571,7 +562,7 @@ option{
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: max-content;
+    min-width: none;
     height: max-content;
     padding: 1vh;
     display: flex;
@@ -581,7 +572,9 @@ option{
     background-color: #ffffff;
     color: white;
 }
-
+nav, #home, #profile, #history, #report, #settings{
+    background-color: #ffffff;
+}
 /* Animations */
 @keyframes rotate {
     0% {

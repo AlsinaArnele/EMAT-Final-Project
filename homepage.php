@@ -1,6 +1,5 @@
 <?php
 session_start();
-include 'php/book.php';
 if(isset($_SESSION['mysession'])){
     $myemail = $_SESSION['mysession'];
 
@@ -20,12 +19,6 @@ if(isset($_SESSION['mysession'])){
 }
 else{
     header('Location: index.php');
-}
-if(isset($_GET['seats'])){
-    $bottomDisplay = "flex";
-}
-else{
-    $bottomDisplay = "none";
 }
 ?>
 <!DOCTYPE html>
@@ -51,32 +44,36 @@ else{
         <p onclick="changeTabs('home')" id="homeicon"><span class="material-symbols-outlined">home</span>Home</p>
         <p onclick="changeTabs('profile')" id="profileicon"><span class="material-symbols-outlined">person</span>Profile</p>
         <p onclick="changeTabs('history')" id="historyicon"><span class="material-symbols-outlined">history</span>Ride History</p>
-        <p onclick="changeTabs('report')" id="reporticon"><span class="material-symbols-outlined">flag</span>Feedback Report</p>
+        <p onclick="changeTabs('report')" id="reporticon"><span class="material-symbols-outlined">flag</span>Feedback</p>
         <p></p>
         <p></p>
         <p></p>
         <p onclick="changeTabs('settings')" id="settingsicon"><span class="material-symbols-outlined">logout</span>Log Out</p>
     </nav> 
-
     <!-- TABS -->
     <div id="home" class="home">
+        <?php include 'php/seats.php';?>
     <form class="top" action="php/fetch.php" method="post">
         <div class="top-details">
             <h1>Make a booking</h1>
-            <select name="route" id="route">
+            <select name="route" id="route" style="display: <?php echo $selectdisplay?>;">
                 <option value="default-route" selected>Choose Route</option>
-                <option value="Rongai">Rongai</option>
-                <option value="CBD">Downtown</option>
-                <option value="Karen">Karen</option>
-                <option value="Ngong">Ngong'</option>
+                <option value="991">Ongata Rongai</option>
+                <option value="989">Downtown Nairobi</option>
+                <!-- <option value="Karen" disabled>Karen</option> -->
+                <option value="990">Ngong'</option>
             </select>
-            <select name="time" id="time">
+            <select name="time" id="time" style="display: <?php echo $selectdisplay?>;">
                 <option value="default-time" selected>Choose Time</option>
                 <option value="11">11.30 am</option>
                 <option value="2">2.30 pm</option>
                 <option value="5">5.30 pm</option>
             </select>
-            <div class="buttonss">
+            <?php 
+                echo $routedisplay;
+                echo $timedisplay;
+            ?>
+            <div class="buttonss" style="display: <?php echo $selectdisplay?>;">
                 <button type="submit">Confirm Ride</button>
                 <button type="reset">Cancel Ride</button>
             </div>
@@ -91,44 +88,30 @@ else{
             <input type="text" name="driver" id="driver" readonly value="Mr. Edgar Obare">
             <div class="seats">
                 <select name="row" id="seatrow" required>
-                    <!--php
-                    for($i=0; $i<count($selectrows); $i++) {
-                        for($j=0; $j<count($selectcols); $j++) {
-                            if(!in_array($selectrows[$i].$selectcols[$j], $seatsArray)) {
-                                echo "<option value='".$selectrows[$i]."'></option>";
-                            } else {
-                                echo '<option value="default" selected>Row</option>';
-                            }
-                        }
+                    <option value="default-row" selected>Choose Row</option>
+                    <?php
+                    foreach ($rows as $row) {
+                        echo "<option value='$row'>$row</option>";
                     }
-                    !-->
+                    ?>
                 </select>
                 <select name="col" id="seatcol" required>
-                    <!--php 
-                    for($i=0; $i<count($selectrows); $i++) {
-                        for($j=0; $j<count($selectcols); $j++) {
-                            if(!in_array($selectrows[$i].$selectcols[$j], $seatsArray)) {
-                                echo "<option value='".$selectcols[$j]."'></option>";
-                            } else {
-                                echo '<option value="default" selected>Row</option>';
-                            }
-                        }
+                    <option value="default-col" selected>Choose Column</option>
+                    <?php
+                    foreach ($columns as $column) {
+                        echo "<option value='$column'>$column</option>";
                     }
-                    -->
+                    ?>
                 </select>
             </div>
         </div>
         <div class="buttonss">
+            <form action="php/cancel.php" method="post" id="destroy"></form>
             <button type="submit">Confirm Ride</button>
-            <button type="reset">Cancel Ride</button>
+            <button onclick="destroyCookie()">Cancel Ride</button>
         </div>
     </form>
-    </div>
-
-    
-    <!-- PHP Code for Verification and Profile Details -->
-    
-
+    </div>    
     <div class='verification' style="display: <?php echo $row['Cust_status'] == 'verified' ? 'none' : 'flex'; ?>;">
         <form action='php/verify.php' method="post">
             <h1>Verify Your Account</h1>
@@ -242,7 +225,6 @@ else{
         </form>
     </div>
     <div class="map-display" id="map"></div>
-
     
     <div class='error' >
         <p id='error-message'></p>
@@ -260,9 +242,6 @@ else{
     }
     ?>
 </body>
-<script src="js/map.js"></script>
-<script>
-    routeSelect.addEventListener('change', setTrack);
-    timeSelect.addEventListener('change', setTrack);
-</script>
 </html> 
+
+<script src="js/map.js"></script>

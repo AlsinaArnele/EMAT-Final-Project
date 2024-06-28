@@ -17,9 +17,9 @@ date_default_timezone_set('Africa/Nairobi');
 $current_time = date('H:i');
 
 $schedule_times = [
-    '11:00',
-    '14:00',
-    '17:00'
+    '11:30',
+    '14:30',
+    '17:30'
 ];
 
 $departure_schedule = null;

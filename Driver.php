@@ -26,8 +26,32 @@ include 'php/connect.php';
         $stmt3 -> execute();
         $result3 = $stmt3 -> get_result();
         $row3 = $result3 -> fetch_assoc();
-
     }
+
+    date_default_timezone_set('Africa/Nairobi');
+$current_time = date('H:i');
+
+$schedule_times = [
+    '11:30',
+    '14:30',
+    '17:30'
+];
+
+$departure_schedule = null;
+foreach ($schedule_times as $time) {
+    if ($current_time < $time) {
+        $departure_schedule = $time;
+        break;
+    }
+}
+
+if ($departure_schedule === null) {
+    $feedback = "No available schedule times.";
+    header("Location: ../Driver.php?feedback=".$feedback);
+    exit();
+}
+
+$arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -49,14 +73,14 @@ include 'php/connect.php';
 
 <!-- Add check in functionality -->
     <nav>
-        <form action="php/logout.php" style="display: none;"></form>
-        <h1>EMAT</h1>
+        <form action="php/driverlogout.php" style="display: none;" id="logout"></form>
+        <h1>EMAT</h1> 
         <img src="Images/Driver.jpg" alt="Driver">
         <h2><?php echo $row['Driver_name']?></h2>
         <p onclick="changeTabs('home')" id="homeicon"><span class="material-symbols-outlined">home</span>Home</p>
         <p onclick="changeTabs('history')" id="historyicon"><span class="material-symbols-outlined">history</span>Ride History</p>
         <p onclick="changeTabs('report')" id="reporticon"><span class="material-symbols-outlined">flag</span>Report Issue</p>
-        <p onclick="changeTabs('settings')" id="settingsicon"><span class="material-symbols-outlined">logout</span>Log Out</p>
+        <p onclick="logout()" id="settingsicon"><span class="material-symbols-outlined">logout</span>Log Out</p>
     </nav>
 
      <div class="logincontainer" <?php echo $style?>>
@@ -104,10 +128,17 @@ include 'php/connect.php';
                 <h2>Destination</h2>
                 <input type="text" value="<?php echo $row3['end_location']?>" readonly>
             </div>
-            <div class="inputs">
-                <h2>Destination</h2>
-                <input type="text" value="<?php echo $row3['end_location']?>" readonly>
+            <div class="double">
+                <div class="inputs">
+                    <h2>Next Departure</h2>
+                    <input type="text" value="<?php echo $departure_schedule?>" readonly>
+                </div>
+                <div class="inputs">
+                    <h2>Expected Arrival</h2>
+                    <input type="text" value="<?php echo $arrivaltime?>" readonly>
+                </div>
             </div>
+            
             <form action="php/createride.php" method="post">
                 <input type="hidden" name="busid" value="<?php echo $row2['BusID']?>">
                 <input type="hidden" name="routeid" value="<?php echo $row3['Route_ID']?>">

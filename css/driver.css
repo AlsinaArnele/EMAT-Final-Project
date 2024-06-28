@@ -296,6 +296,14 @@ option{
     outline: none;
     /* border: 1px solid green; */
 }
+.double{
+    width: 100%;
+    height: max-content;
+    display: flex;
+}
+.double .inputs input{
+    width: 12vw;
+}
 .scheduling form{
     width: 100%;
     height: max-content;

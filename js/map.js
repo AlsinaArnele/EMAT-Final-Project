@@ -68,13 +68,13 @@ function setTrack() {
     if (route !== 'default-route' && time !== 'default-time') {
         var destination;
         switch (route) {
-            case 'Ngong':
+            case '990':
                 destination = L.latLng(-1.3567, 36.6561);
                 break;
-            case 'CBD':
+            case '989':
                 destination = L.latLng(-1.286389, 36.817223);
                 break;
-            case 'Rongai':
+            case '991':
                 destination = L.latLng(-1.3943, 36.7628);
                 break;
             case 'Karen':
@@ -121,7 +121,7 @@ function changeTabs(tab) {
                 return;
             }else{
                 currentTab.style.display = "flex";
-                icon.style.backgroundColor = "#A1EEDF";
+                icon.style.backgroundColor = "#AFC8AD";
             }
         } else {
             currentTab.style.display = "none";
@@ -172,6 +172,19 @@ function mapEnlarge(){
     }
     document.getElementById('map').style.width = "70vw";
 }
+function logout(){
+    if(confirm("Are you sure you want to logout?")){
+        var form = document.getElementById('logout');
+        form.submit();
+    }
+}
+function destroyCookie(){
+    var cookieform = document.getElementById('destroy');
+    cookieform.submit();
+}
+
+
+
 
 
   
