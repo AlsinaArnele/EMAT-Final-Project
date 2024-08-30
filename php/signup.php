@@ -32,11 +32,11 @@
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'leviskibet2002@gmail.com';
-        $mail->Password = 'pkgy elny metj plet';
+        $mail->Username = '';
+        $mail->Password = '';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-        $mail->setFrom('leviskibet2002@gmail.com', 'Levis');
+        $mail->setFrom('', '');
         $mail->addAddress($email, $name);
         $mail->Subject = 'Account Verification';
         $mail->Body = 'Hello ' . $name . ', Welcome to EMAT! Your verification code is ' . $vericode . '. Please enter this code to verify your email address.';

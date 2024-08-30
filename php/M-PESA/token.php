@@ -1,7 +1,7 @@
 <?php
 // fetch and output access token
-$consumerKey = 'IJPs8xAggznZ0n0sLwzE5GFmBGcoyQaACjZPlUMRscfyv6jX';
-$consumerSecret = 'ihi8Sfffwc01TVdU2NMn6NqwlysxJmToqQDlEOrhImXJSc10wOz2xsNdxFb7oeAD';
+$consumerKey = '';
+$consumerSecret = '';
 
 $headers = ['Content-Type:application/json; charset=utf8'];
 $url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';

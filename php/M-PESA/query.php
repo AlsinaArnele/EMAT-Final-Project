@@ -28,7 +28,7 @@ if (isset($_GET['checkoutRequestID'])) {
 
         $shortCode = '174379';
         $timestamp = date('YmdHis');
-        $passKey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'; // Sandbox Pass Key
+        $passKey = ''; // Sandbox Pass Key
         $password = base64_encode($shortCode . $passKey . $timestamp);
 
         $requestBody = json_encode([
@@ -70,11 +70,11 @@ if (isset($_GET['checkoutRequestID'])) {
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
-                $mail->Username = 'leviskibet2002@gmail.com';
-                $mail->Password = 'pkgy elny metj plet';
+                $mail->Username = '';
+                $mail->Password = '';
                 $mail->SMTPSecure = 'tls';
                 $mail->Port = 587;
-                $mail->setFrom('leviskibet2002@gmail.com', 'Levis');
+                $mail->setFrom('', '');
                 $mail->addAddress($email);
                 $mail->Subject = 'Payment Confirmation';
                 $mail->Body = 'Dear Customer, Your payment was successful. Your booking for route ' . $route . ' with seat number ' . $seat . ' is confirmed for departure at ' . $time . '.';
