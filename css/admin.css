@@ -1,0 +1,469 @@
+*{
+    font-family: "Lato", sans-serif;
+    color: #262626;
+    font-weight: 400;
+    transition: all 0.5s;
+    cursor:  url('../Images/ClassicWhiteNormalSelect.cur'), auto;
+}
+button{
+    color: white;
+    background-color: #AFC8AD;
+    border: 1px solid #AFC8AD;
+    width: 11vw;
+    height: 6vh;
+    border-radius: 1vh;
+}
+button:hover{
+    color: #AFC8AD;
+    background-color: white;
+    border: 1px solid #AFC8AD;
+}
+button:active{
+    transform: scale(0.9);
+    color: #88AB8E;
+    background-color: white;
+    border: 1px solid #88AB8E;
+}
+input, select{
+    border: none;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #262626;
+    width: 24vw;
+    height: 6vh;
+    padding-left: 1vh;
+    border-radius: 1vh;
+    margin-top: 1vh;
+}
+input:focus, select:focus{
+    outline: none;
+    border-bottom: 1px solid #AFC8AD;
+}
+h1{
+    font-size: 2vw;
+    height: 8vh;
+    color: #262626;
+}
+h2{
+    font-size: 1.3vw;
+    height: 6vh;
+    color: #262626;
+    height: 3vh;
+}
+#history h2{
+    font-size: 1.3vw;
+    width: 50%;
+    height: max-content;
+    color: #262626;
+}
+h3{
+    font-size: 1vw;
+}
+p{
+    font-size: 2vh;
+}
+body{
+    margin: 0;
+    background-color: #ffffff;
+    overflow: hidden;
+    z-index: 100;
+    padding: unset;
+    -ms-overflow-style: none; 
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
+    /* font-size: 16px; */
+}
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 90;
+    color: #262626;
+  }
+#history::-webkit-scrollbar , #profile::-webkit-scrollbar{
+  display: none;
+}
+.logincontainer{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 9999;
+}
+
+.loginform{
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2vh;
+    width: 30vw;
+    height: 30vw;
+    padding-top: 3vh;
+    padding-bottom: 3vh;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.loginform h1{
+    font-size: 3vh;
+    height: 6vh;
+    width: 23vw;
+}
+.textbox{
+    margin-top: 1vh;
+    width: 26.5vw;
+    padding-left: 3.5vw;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: start;
+}
+.textbox input{
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 1vh;
+    border: 1px solid rgb(0, 0, 0);
+    width: 23vw;
+    height: 5vh;
+    padding-left: 1.5vh;
+}
+.textbox input:focus, .diff-textbox input:focus{
+    outline: none;
+    border: 1px solid #88AB8E;
+}
+.loginform button{
+    width: 24vw;
+    height: 6vh;
+}
+nav{
+    all: unset;
+    height: 100vh;
+    width: 15vw;
+    position: absolute;
+    left: 0;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    z-index: 998;
+    transition: all 0.4s ease-in;
+    /* margin: 0; */
+}
+nav img{
+    margin-top: 5vh;
+    width: 8vw;
+    height: 8vw;
+    border-radius: 50%;
+    margin-bottom: 1vh;
+    border: 1px solid #26262673;
+}
+#dashboardicon, #usersicon, #driversicon, #feedbackicon, #ticketsicon, #routesicon, #settingsicon{
+    width: 13vw;
+    height: 7vh;
+    border-radius: 1vh;
+    padding-left: 1vw;
+    font-size: 1vw;
+    display: flex;
+    justify-content: start;
+    column-gap: 1vw;
+    align-items: center;
+    background-color: #ffffff;
+    text-decoration: none;
+    margin-top: unset;
+}
+#dashboardicon{
+    margin-top: 5vh;
+}
+nav p:hover, nav a:hover{
+    transform: scale(1.05);
+    background-color: #88AB8E;
+}
+.container{
+    margin-top: 2vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    height: 96vh;
+    justify-content: center;
+    align-items: center;
+    margin-left: 13vw;
+    border-radius: 1.5vw;
+    background-color: #f2f1ebb0;
+    overflow: hidden;
+}
+.container-nav{
+    width: 75vw;
+    height: max-content;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: transparent;
+    border-bottom: 1px solid #262626;
+}
+.greetings{
+    width: 10vw;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#dashboard{
+    width: 94%;
+    height: 100%;
+    display: flex;
+}
+#users{
+    width: 75vw;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: start;
+    align-self: center;
+}
+.search{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    justify-content: start;
+    column-gap: 1vw;
+    align-items: end;
+}
+#filter{
+    width: 7vw;
+    height: 5vh;
+}
+.head-tr{
+    display: flex;  
+    border-bottom: 1px solid #262626;
+    font-size: 1.2vw;
+    font-weight: bold;
+}
+.tr{
+    display: flex;
+    height: 6vh;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 1vh;
+    border-radius: 1vh;
+    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 1vw;
+}
+.profile-image{
+    width: 10vw;
+    height: 5vh;
+}
+.profile-image img{
+    width: 2vw;
+    height: 2vw;
+    border-radius: 10%;
+}
+.profile-image img:hover{
+    position: absolute;
+    transform: scale(3);
+}
+.username{
+    width: 10vw;
+    height: 5vh;
+}
+.email{
+    width: 20vw;
+    height: 5vh;
+}
+#user-data, .status{
+    width: 10vw;
+    height: 5vh;
+}
+.actions{
+    width: 20vw;
+    height: 5vh;
+}
+.actions, #user-data, .email, .username, .profile-image, .status{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: 1vw;
+}
+.actions button{
+    width: 7vw;
+    height: 4vh;
+    border-radius: unset;
+}
+#drivers{
+    width: 75vw;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: start;
+    align-self: center;
+}
+#feedback {
+    width: 75vw;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: start;
+    align-self: center;
+}
+#feedback .status, #feedback #user-data{
+    width: 15vw;
+    height: 5vh;
+}
+#tickets{
+    width: 75vw;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: start;
+    align-self: center;
+}
+#routes{
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#settings{
+    position: absolute;
+    left: 15vw;
+    top: 30vh;
+    width: 24vw;
+    height: 40vh;
+    display: none;
+    flex-direction: column;
+    z-index: 997;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 1vw;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+#settings .logout-btn{
+    display: flex;
+    column-gap: 1vw;
+}
+.pagination{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1vw;
+}
+.pagination a{
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    color: #88AB8E;
+    text-decoration: none;
+}
+.pagination a:hover{
+    background-color: #88AB8E;
+    color: white;
+}
+#map{
+    height: 100%;
+    width: 100%;
+    z-index: 996;
+    color: black;
+    overflow: hidden;
+}
+.error{
+    z-index: 999;
+    position: absolute;
+    bottom : 0;
+    width: 10vw;
+    right: -10vw;
+    height: 10vh;
+    padding: 1vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.error p{
+    font-size: 1.5vh;
+    color: red;
+    width: 100%;
+    text-align: center;
+    text-wrap: wrap;
+}
+@media only screen and (max-width: 600px) {
+    #toHide{
+        display: none;
+    }
+    body{
+        flex-direction: column;
+    }
+    nav{
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 10vh;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    #dashboardicon, #usersicon, #driversicon, #feedbackicon, #ticketsicon, #routesicon, #settingsicon{
+        width: 6vh;
+        height: 6vh;
+        border-radius: 1vh;
+        font-size: 2vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #ffffff;
+    }
+    #dashboardicon{
+        margin-top: unset;
+    }
+    nav img{
+        margin-top: unset;
+        width: 6vh;
+        height: 6vh;
+        border-radius: 50%;
+        margin-bottom: unset;
+    }
+    .container{
+        width: 100vw;
+        height: 90vh;
+        margin-left: unset;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+    #dashboard, #users, #drivers, #feedback, #tickets, #routes, #settings{
+        width: 100%;
+        height: 100%;
+        display: none;
+        flex-direction: column;
+        justify-content: start;
+        align-self: center;
+    }
+    .profile-image, .actions, .status{
+        display: none;
+    }
+    .username, #user-data{
+        width: 25%;
+        height: 5vh;
+    }
+    .email{
+        width: 50%;
+        height: 5vh;
+    }
+    .search{
+        display: none;
+    }
+  }

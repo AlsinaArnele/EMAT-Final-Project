@@ -19,7 +19,7 @@ $stmt->fetch();
 $stmt->close();
 if (!$existsemail) {
     $feedback = "Email does not exist";
-    header('Location: ../index.php?feedback=' . $feedback);
+    header('Location: ../Pages/Customer/index.php?feedback=' . $feedback);
     exit();
 }
 
@@ -34,10 +34,10 @@ $conn->close();
  
 if (password_verify($password, $hashedPass)) { 
     $_SESSION['mysession'] = $email;
-    header("Location: ../homepage.php");
+    header("Location: ../pages/customer/verify.php");
 }
 else {
     $feedback = "Invalid password or email!";
-    header('Location: ../index.php?feedback=' . $feedback);
+    header('Location: ../pages/customer/index.php?feedback=' . $feedback);
 }
 ?>

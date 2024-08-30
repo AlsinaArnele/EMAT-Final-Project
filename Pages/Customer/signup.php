@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-        <link href="css/signup.css" rel="stylesheet">
+        <link href="../../css/signup.css" rel="stylesheet">
         <script src="js/app.js"></script>
     </head>
     <body id="mainbody">
@@ -14,13 +14,13 @@
             <div class="left">
                 <h1>Elevating <span style="color: green;">Campus</span><br/>Mobility</h1>
                 <p>Streamlined Transport Solution for <span style="color: red;">Students.</span></p>
-                <img src="Images/Login-image.png" alt="image">
+                <img src="../../Images/Login-image.png" alt="image">
             </div>
             <div class="middle">
                 <img src="Images/logo.png" alt="">
                 <h1>EMAT</h1>
             </div>
-            <form action="php/signup.php" method="post" class="right">
+            <form action="../../php/signup.php" method="post" class="right">
                 <h1>Register an Account</h1>
                 <div class='error' >
                     <?php
@@ -41,12 +41,16 @@
                     <input type="email" placeholder="&#xF0e0;  Enter Your Email" id="Email" name="Email" style="font-family:Arial, FontAwesome" required>
                 </div>
                 <div class="input">
+                    <h3>PHONE NUMBER</h3>
+                    <input type="email" placeholder="&#xF0e0;  Enter Your Phone (254XX-XXX-XXX)" id="Phne" name="Phone" style="font-family:Arial, FontAwesome" required>
+                </div>
+                <div class="input">
                     <h3>PASSWORD</h3>
                     <input type="password" placeholder="&#xF023;  Enter Your Password" id="Password" name="Password" style="font-family:Arial, FontAwesome;" required>
                 </div>
                 <div class="input">
                     <h3>CONFIRM PASSWORD</h3>
-                    <input type="password" placeholder="&#xF0e0;  Confirm Password" id="confirm-password" name="confirm-password" style="font-family:Arial, FontAwesome" required>
+                    <input type="password" placeholder="&#xF023;  Confirm Password" id="confirm-password" name="confirm-password" style="font-family:Arial, FontAwesome" required>
                 </div>
                 <div id="google-container">
                     <button id="registerbutton">SIGN UP</button>

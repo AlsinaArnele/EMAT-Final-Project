@@ -3,7 +3,7 @@ session_start();
 include 'connect.php';
 
 if(isset($_SESSION['driver'])) {
-    header("Location: ../driver.php");
+    header("Location: ../pages/driver/driver.php");
 }
 
 $id = $_POST['driverid'];
@@ -19,7 +19,7 @@ $stmt->fetch();
 $stmt->close();
 if (!$existsemail) {
     $feedback = "Invalid ID!";
-    header('Location: ../driver.php?feedback=' . $feedback);
+    header('Location: ../pages/driver/driver.php?feedback=' . $feedback);
     exit();
 }
 
@@ -35,15 +35,15 @@ $conn->close();
 if (password_verify($password, $hashedPass)) { 
     $_SESSION['driver'] = $id;
     $feedback = "Welcome!";
-    header('Location: ../driver.php?feedback=' . $feedback);
+    header('Location: ../pages/driver/driver.php?feedback=' . $feedback);
 }
 else if($password == $hashedPass){
     $_SESSION['driver'] = $id;
     $feedback = "Welcome!";
-    header('Location: ../driver.php?feedback=' . $feedback);
+    header('Location: ../pages/driver/driver.php?feedback=' . $feedback);
 }
 else {
     $feedback = "Invalid password or ID!";
-    header('Location: ../driver.php?feedback=' . $feedback);
+    header('Location: ../pages/driver/driver.php?feedback=' . $feedback);
 }
 ?>

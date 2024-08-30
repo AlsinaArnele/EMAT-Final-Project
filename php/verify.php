@@ -14,12 +14,12 @@ $stmt->close();
 
 if ($code != $savedCode) {
     $mymessage = "Invalid verification code";
-    header("Location: ../homepage.php?message=" . urlencode($mymessage));
+    header("Location: ../Pages/Customer/Verify.php?message=" . urlencode($mymessage));
 } else {
     $sql = "DELETE FROM customerverification WHERE Cust_email=?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $email);
-    $stmt->execute();
+    $stmt->execute(); 
     $stmt->close();
 
     $verify = "UPDATE customer SET Cust_status='verified' WHERE Cust_email=?";
@@ -30,6 +30,6 @@ if ($code != $savedCode) {
     $conn->close();
 
     $mymessage = "Account verified";
-    header("Location: ../homepage.php?message=" . urlencode($mymessage));
+    header("Location: ../Pages/Customer/homepage.php?message=" . urlencode($mymessage));
 }
 ?>

@@ -1,65 +1,58 @@
 <?php
-include 'php/connect.php';
-    session_start();
-    if (!isset($_SESSION['driver'])) {
-        $style = "style='display: flex;'";
-    }else{
-        $style = "style='display: none;'";
-        $sql = 'SELECT * FROM `drivers` WHERE `driver_id` = ?';
-        $stmt = $conn -> prepare($sql);
-        $stmt -> bind_param('s', $_SESSION['driver']);
-        $stmt -> execute();
-        $result = $stmt -> get_result();
-        $row = $result -> fetch_assoc();
-
-        $sql2 = 'SELECT * FROM `buses` WHERE `driver_id` = ?';
-        $stmt2 = $conn -> prepare($sql2);
-        $stmt2 -> bind_param('s', $_SESSION['driver']);
-        $stmt2 -> execute();
-        $result2 = $stmt2 -> get_result();
-        $row2 = $result2 -> fetch_assoc();
-        $route = $row2['Route_name'];
-
-        $sql3 = 'SELECT * FROM `routes` WHERE `Route_name` = ?';
-        $stmt3 = $conn -> prepare($sql3);
-        $stmt3 -> bind_param('s', $route);
-        $stmt3 -> execute();
-        $result3 = $stmt3 -> get_result();
-        $row3 = $result3 -> fetch_assoc();
-    }
-
-    date_default_timezone_set('Africa/Nairobi');
+include '../../php/driver-sessions.php';
+include '../../php/connect.php';
+date_default_timezone_set('Africa/Nairobi');
 $current_time = date('H:i');
 
 $schedule_times = [
     '11:30',
-    '14:30',
+    '14:30', 
     '17:30'
 ];
 
-$departure_schedule = null;
+$departuretime = null;
 foreach ($schedule_times as $time) {
     if ($current_time < $time) {
-        $departure_schedule = $time;
+        $departuretime = $time;
         break;
     }
 }
 
-if ($departure_schedule === null) {
-    $feedback = "No available schedule times.";
-    header("Location: ../Driver.php?feedback=".$feedback);
-    exit();
+if ($departuretime == null) {
+    $arrivaltime = "No more rides today";
+    $departuretime = "No more rides today";
+    $textcolor = "style='color: red;'";
+} else {
+    $arrivaltime = date('H:i', strtotime($departuretime . ' +1 hour'));
+    $textcolor = "style='color: #00856F;'";
 }
 
-$arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
+// $host = 'localhost';
+// $port = 8080;
+// $socket = stream_socket_client("tcp://{$host}:{$port}", $errno, $errstr);
+
+// if (!$socket) {
+//     echo "Error: $errstr ($errno)\n";
+// } else {
+//     while (true) {
+//         $locationData = json_encode([
+//             'lat' => 37.7749,
+//             'lon' => -122.4194
+//         ]);
+
+//         fwrite($socket, $locationData);
+//         sleep(60);  // Send update every 5 seconds
+//     }
+//     fclose($socket);
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emat | Home</title>
-    <link rel="stylesheet" href="css/driver.css">
+    <title>Emat | Driver</title>
+    <link rel="stylesheet" href="../../css/driver.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
@@ -75,16 +68,16 @@ $arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
     <nav>
         <form action="php/driverlogout.php" style="display: none;" id="logout"></form>
         <h1>EMAT</h1> 
-        <img src="Images/Driver.jpg" alt="Driver">
+        <img src="../../Images/Driver.jpg" alt="Driver">
         <h2><?php echo $row['Driver_name']?></h2>
         <p onclick="changeTabs('home')" id="homeicon"><span class="material-symbols-outlined">home</span>Home</p>
         <p onclick="changeTabs('history')" id="historyicon"><span class="material-symbols-outlined">history</span>Ride History</p>
-        <p onclick="changeTabs('report')" id="reporticon"><span class="material-symbols-outlined">flag</span>Report Issue</p>
-        <p onclick="logout()" id="settingsicon"><span class="material-symbols-outlined">logout</span>Log Out</p>
+        <p onclick="changeTabs('feedback')" id="reporticon"><span class="material-symbols-outlined">flag</span>Report Issue</p>
+        <p onclick="changeTabs('settings')" id="settingsicon"><span class="material-symbols-outlined">logout</span>Log Out</p>
     </nav>
 
      <div class="logincontainer" <?php echo $style?>>
-            <form class="loginform" action="php/driverlogin.php" method="POST">
+            <form class="loginform" action="../../php/driverlogin.php" method="POST">
                 <h1>Hello, kindly check in.</h1>
                 <div class="textbox">
                     <h2>Driver ID</h2>
@@ -131,19 +124,21 @@ $arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
             <div class="double">
                 <div class="inputs">
                     <h2>Next Departure</h2>
-                    <input type="text" value="<?php echo $departure_schedule?>" readonly>
+                    <input type="text" <?php echo $textcolor?> value="<?php echo $departuretime?>" readonly>
                 </div>
                 <div class="inputs">
                     <h2>Expected Arrival</h2>
-                    <input type="text" value="<?php echo $arrivaltime?>" readonly>
+                    <input type="text" <?php echo $textcolor?> value="<?php echo $arrivaltime?>" readonly>
                 </div>
             </div>
             
-            <form action="php/createride.php" method="post">
+            <form action="../../php/createride.php" method="post">
                 <input type="hidden" name="busid" value="<?php echo $row2['BusID']?>">
                 <input type="hidden" name="routeid" value="<?php echo $row3['Route_ID']?>">
+                <input type="hidden" name="departure" value="<?php echo $departuretime?>">
+                <input type="hidden" name="arrival" value="<?php echo $arrivaltime?>">
                 <?php
-                    $sql = "SELECT *FROM schedules WHERE BusID = ? AND Schedule_status = 'Scheduled'";
+                    $sql = "SELECT * FROM schedules WHERE BusID = ? AND Schedule_status = 'Scheduled' AND DATE(departure_time) = CURDATE() AND (TIME(departure_time) = '11:30:00' OR TIME(departure_time) = '14:30:00' OR TIME(departure_time) = '17:30:00')";
                     $stmt = $conn->prepare($sql);
                     $stmt->bind_param('s', $row2['BusID']);
                     $stmt->execute();
@@ -176,7 +171,7 @@ $arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
         </div>
     </div>
 
-    <div id="history" class="history">
+    <div id="history">
         <div class="history-nav">
             <h2>Booking History</h2>
             <button>Download</button>
@@ -211,7 +206,7 @@ $arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
         </div>
     </div>
 
-    <form id="report" class="report">
+    <form id="report">
         <h2>Give Feedback</h2>
         <h2>What is your experience using Emat?</h2>
         <div class="faces">
@@ -234,10 +229,10 @@ $arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
         </div>
     </form>
     
-    <div id="settings" class="settings">
+    <div id="settings">
         <h1>Confirm Log Out</h1>
         <p>Are you sure you want to log out?</p>
-        <form class="logout-btn" action="php/logout.php" method="POST">
+        <form class="logout-btn" action="../../php/logout.php" method="POST">
             <button type="button" onclick="changeTabs('settings')">Cancel</button>
             <button type="submit">Log Out</button>
         </form>
@@ -254,5 +249,113 @@ $arrivaltime = date('H:i', strtotime($departure_schedule . ' +1 hour'));
         ?>
     </div>
 </body>
-<script src="js/map.js"></script>
+<script>
+    // Variables and DOM Elements
+var navbar = document.querySelector('nav');
+var mapElement = document.getElementById('map');
+var routeSelect = document.getElementById('route');
+var timeSelect = document.getElementById('time');
+var usernameInput = document.getElementById('username');
+var emailInput = document.getElementById('email');
+var phoneInput = document.getElementById('phone');
+
+// After page load, move navbar to the right
+window.onload = function() {
+    navbar.style.left = '0';
+};
+
+// Initialize map
+var map = L.map('map').setView([-1.2921, 36.8219], 16);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+
+// Define custom icons
+var customIcon = L.icon({
+    iconUrl: '../../js/Location.png',
+    iconSize: [38, 38], // size
+    iconAnchor: [22, 22], // point of icon that corresponds with marker's location
+    popupAnchor: [-3, -76]
+});
+
+var redIcon = L.icon({
+    iconUrl: '../../js/Location.png',
+    iconSize: [38, 38],
+    iconAnchor: [22, 22],
+    popupAnchor: [-3, -76]
+});
+
+
+var marker;
+
+// update marker with users live location
+navigator.geolocation.watchPosition(function(position) {
+    var lat = position.coords.latitude;
+    var long = position.coords.longitude;
+    if (!marker) {
+        marker = L.marker([lat, long], {icon: customIcon}).addTo(map);
+    } else {
+        marker.setLatLng([lat, long]);
+    }
+    map.panTo(new L.LatLng(lat, long));
+}, function(error) {
+    if (error.code === 1) {
+        alert("Please allow location access!");
+    } else {
+        alert("Cannot get current location!");
+    }
+});
+
+var destinations = [
+    L.marker([-1.3567, 36.6561], {icon: redIcon}).addTo(map),
+    L.marker([-1.286389, 36.817223], {icon: redIcon}).addTo(map),
+    L.marker([-1.3943, 36.7628], {icon: redIcon}).addTo(map),
+    L.marker([-1.3268, 36.7022], {icon: redIcon}).addTo(map)
+];
+
+function setTrack() {
+    var route = routeSelect.value;
+    var time = timeSelect.value;
+    if (route !== 'default-route' && time !== 'default-time') {
+        var destination;
+        switch (route) {
+            case 'Ngong':
+                destination = L.latLng(-1.3567, 36.6561);
+                break;
+            case 'CBD':
+                destination = L.latLng(-1.286389, 36.817223);
+                break;
+            case 'Rongai':
+                destination = L.latLng(-1.3943, 36.7628);
+                break;
+            case 'Karen':
+                destination = L.latLng(-1.3268, 36.7022);
+                break;
+            default:
+                alert('Route not implemented yet!');
+                return;
+        }
+        var control = L.Routing.control({
+            routeWhileDragging: true,
+            show: false,
+            createMarker: function() {
+                return null;
+            }
+        }).addTo(map);
+        navigator.geolocation.watchPosition(function(position) {
+            var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            control.setWaypoints([
+                L.latLng(lat, long),
+                destination
+            ]);
+        });
+    } else {
+        routeSelect.style.color = 'red';
+        timeSelect.style.color = 'red';
+    }
+}
+</script>
 </html>
+ 

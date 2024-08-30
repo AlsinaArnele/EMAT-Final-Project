@@ -21,14 +21,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Define custom icons
 var customIcon = L.icon({
-    iconUrl: 'Images/Location.png',
+    iconUrl: '../../js/Location.png',
     iconSize: [38, 38], // size
     iconAnchor: [22, 22], // point of icon that corresponds with marker's location
     popupAnchor: [-3, -76]
 });
 
 var redIcon = L.icon({
-    iconUrl: 'Images/Location.png',
+    iconUrl: '../../js/Location.png',
     iconSize: [38, 38],
     iconAnchor: [22, 22],
     popupAnchor: [-3, -76]
@@ -47,6 +47,15 @@ navigator.geolocation.watchPosition(function(position) {
         marker.setLatLng([lat, long]);
     }
     map.panTo(new L.LatLng(lat, long));
+    const ws = new WebSocket('ws://localhost:8080');
+
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const { lat, lon } = data;
+
+            busMarker.setLatLng([lat, lon]);
+            map.setView([lat, lon], 13);
+        };
 }, function(error) {
     if (error.code === 1) {
         alert("Please allow location access!");

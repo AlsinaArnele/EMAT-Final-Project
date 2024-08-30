@@ -10,6 +10,7 @@
     
     $name = $_POST['Username'];
     $email = strtolower($_POST['Email']);
+    $phone = $_POST['Phone'];
     $password = $_POST['confirm-password'];
     $hashedpass = password_hash($password, PASSWORD_DEFAULT);
     $vericode = rand(1000, 9999);
@@ -24,7 +25,7 @@
     $stmt->close();
     if ($existsemail) {
         $feedback = "Email already exists";
-        header('Location: ../signup.php?feedback=' . $feedback);
+        header('Location: ../Pages/customer/signup.php?feedback=' . $feedback);
         exit();}
     try {
         $mail = new PHPMailer(true);
@@ -41,8 +42,8 @@
         $mail->Body = 'Hello ' . $name . ', Welcome to EMAT! Your verification code is ' . $vericode . '. Please enter this code to verify your email address.';
         $mail->send();
     
-        $stmt1 = $conn->prepare("INSERT INTO customer (Cust_name, Cust_email, Cust_pass) VALUES (?, ?, ?)");
-        $stmt1->bind_param("sss", $name, $email, $hashedpass);
+        $stmt1 = $conn->prepare("INSERT INTO customer (Cust_name, Cust_email, Cust_phone, Cust_pass) VALUES (?, ?, ?, ?)");
+        $stmt1->bind_param("ssss", $name, $email, $phone, $hashedpass);
         
         if ($stmt1->execute()) {
             $feedback = "New record created successfully";
@@ -52,19 +53,19 @@
             $stmt2->execute();
     
             $_SESSION['mysession'] = $email;
-            header('Location: ../homepage.php');
+            header('Location: ../Pages/customer/homepage.php');
         } else {
             $stmt3 = $conn->prepare("DELETE FROM customer WHERE Cust_email = ?");
             $stmt3->bind_param("s", $email);
             $feedback = "Error, please try again later.";
-            header('Location: ../signup.php?feedback=' . $feedback);
+            header('Location: ../Pages/customer/signup.php?feedback=' . $feedback);
         }
     } catch (Exception $e) {
         $feedback = "Error sending email: {$mail->ErrorInfo}"; // for debugging
 
         // user-friendly error message
         $feedback = "Connection error, please try again later.";
-        header('Location: ../signup.php?feedback=' . $feedback);
+        header('Location: ../Pages/customer/signup.php?feedback=' . $feedback);
     }
     
 ?>
